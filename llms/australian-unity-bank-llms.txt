@@ -1,0 +1,23 @@
+# Australian Unity Bank
+
+> Australian Unity Bank Limited is the banking arm of Australian Unity, a member-owned Australian mutual founded in Melbourne in 1840. As an APRA-authorised deposit-taking institution (ADI), it offers everyday transaction and savings accounts, term deposits, and home loans to members. It operates a Consumer Data Right (CDR / Open Banking) gateway exposing the mandated Product Reference Data (PRD) surface under the DSB Consumer Data Standards; it publishes no separate developer portal.
+
+## APIs
+
+- [Australian Unity Bank CDR Product Reference Data API](https://consumerdatastandardsaustralia.github.io/standards/#banking-products): Public, unauthenticated GET /cds-au/v1/banking/products surface at https://open-banking.australianunity.com.au/ (WAF/geo/accreditation-gated; returned HTTP 403 to a July 2026 non-AU probe). Contract is the shared DSB Consumer Data Standards.
+
+## Specs
+
+- [CDR Consumer Data Standards — Banking Products](https://consumerdatastandardsaustralia.github.io/standards/#banking-products): The shared DSB standard this bank's PRD endpoint implements (not a bank-proprietary spec).
+- [Get Products endpoint reference](https://consumerdatastandardsaustralia.github.io/standards/#get-products)
+
+## Artifacts
+
+- [Domain security probe](https://raw.githubusercontent.com/api-evangelist/australian-unity-bank/refs/heads/main/security/australian-unity-bank-domain-security.yml): TLS/HSTS/DNSSEC/CAA/SPF/DMARC posture for australianunity.com.au and the open-banking gateway host.
+
+## Docs
+
+- [Australian Unity](https://www.australianunity.com.au/)
+- [CDR — how to find data holders (product data)](https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service)
+- [Privacy Policy](https://www.australianunity.com.au/privacy-policy)
+- [Terms and Conditions](https://www.australianunity.com.au/terms-and-conditions)

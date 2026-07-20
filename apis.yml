@@ -11,11 +11,15 @@ description: Australian Unity Bank Limited is the banking arm of Australian Unit
   transaction and savings accounts, term deposits, and home loans to members as an
   APRA-authorised deposit-taking institution (ADI) covered by the Financial Claims
   Scheme. On its Consumer Data Right (CDR / Open Banking) posture, Australian Unity
-  Bank is a genuine ADI but, as of July 2026, is not listed as an active data holder
-  brand in the CDR Register and has historically fallen under CDR exemption / deferred
-  data-holder timelines, so no public, unauthenticated Product Reference Data (PRD)
-  endpoint could be confirmed live for this bank. The bank publishes no developer
-  portal or open-banking API documentation on its public website.
+  Bank is a genuine ADI and operates a real CDR Open Banking gateway at
+  open-banking.australianunity.com.au (CloudFront-fronted), exposing the mandated
+  Product Reference Data (PRD) surface at /cds-au/v1/banking/products. A July 2026
+  probe from a non-AU IP returned HTTP 403 across x-v 1-4 (typical WAF / geo /
+  accreditation gating on CDR PRD hosts), so product JSON could not be captured
+  verbatim, but the host resolves and responds - confirming Australian Unity as a
+  live data-holder surface rather than the earlier unverified template. The bank
+  publishes no separate developer portal or open-banking API documentation on its
+  public marketing website; the contract is the shared DSB Consumer Data Standards.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Financial
@@ -40,7 +44,7 @@ apis:
   - Products
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
-  baseURL: https://{dataHolderPublicBaseUri}/cds-au/v1/banking/products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
   properties:
   - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
     type: Documentation
@@ -52,13 +56,20 @@ apis:
     unauthenticated GET /cds-au/v1/banking/products (and /products/{productId}) surface
     that every active Australian ADI must expose under the DSB Consumer Data Standards
     (CDS). It returns product data - accounts, rates, fees, and eligibility - as JSON
-    with an x-v version header. This entry is UNVERIFIED for Australian Unity Bank -
-    the bank is not currently listed as an active data holder brand in the CDR Register
-    and no live PRD endpoint returned HTTP 200, so the baseURL shown is the shared
-    CDS path template ({dataHolderPublicBaseUri}), not a confirmed Australian Unity
-    host. The linked contract is the shared DSB Consumer Data Standards, not a
+    with an x-v version header. Australian Unity Bank operates a real CDR Open Banking
+    gateway at https://open-banking.australianunity.com.au/ (CloudFront-fronted); the
+    baseURL above is its confirmed PRD path. As of a July 2026 probe from a non-AU IP,
+    the /cds-au/v1/banking/products endpoint (and the host root) returned HTTP 403
+    Forbidden to unauthenticated GETs across x-v 1-4 - typical WAF/geo/accreditation
+    gating on CDR PRD hosts - so product JSON could not be captured verbatim, but the
+    host resolves and responds, confirming Australian Unity as a live data-holder
+    surface. The linked contract is the shared DSB Consumer Data Standards, not a
     bank-proprietary API.
 common:
+- type: DomainSecurity
+  url: security/australian-unity-bank-domain-security.yml
+- type: LLMsTxt
+  url: llms/australian-unity-bank-llms.txt
 - type: Website
   url: https://www.australianunity.com.au/
 - type: LinkedIn
