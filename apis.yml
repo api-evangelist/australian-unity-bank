@@ -1,0 +1,72 @@
+aid: australian-unity-bank
+url: https://raw.githubusercontent.com/api-evangelist/australian-unity-bank/refs/heads/main/apis.yml
+name: Australian Unity Bank
+kind: company
+description: Australian Unity Bank Limited is the banking arm of Australian Unity,
+  a member-owned Australian mutual founded in Melbourne in 1840 with origins in the
+  friendly-societies movement and a group spanning health insurance, wealth management,
+  aged and home care, retirement living, and banking. The bank traces to Big Sky Credit
+  Union, which merged with Australian Unity in 2012, became Big Sky Building Society
+  Limited, and was later renamed Australian Unity Bank Limited; it offers everyday
+  transaction and savings accounts, term deposits, and home loans to members as an
+  APRA-authorised deposit-taking institution (ADI) covered by the Financial Claims
+  Scheme. On its Consumer Data Right (CDR / Open Banking) posture, Australian Unity
+  Bank is a genuine ADI but, as of July 2026, is not listed as an active data holder
+  brand in the CDR Register and has historically fallen under CDR exemption / deferred
+  data-holder timelines, so no public, unauthenticated Product Reference Data (PRD)
+  endpoint could be confirmed live for this bank. The bank publishes no developer
+  portal or open-banking API documentation on its public website.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Banking
+- Australia
+- Mutual
+- Product Reference Data
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: australian-unity-bank:australian-unity-bank-cdr-product-reference-data-api
+  name: Australian Unity Bank CDR Product Reference Data API
+  tags:
+  - Open Banking
+  - CDR
+  - Product Reference Data
+  - Banking
+  - Products
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://{dataHolderPublicBaseUri}/cds-au/v1/banking/products
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+    type: APIReference
+  - url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+    type: Provenance
+  description: The Consumer Data Right Product Reference Data (PRD) API is the public,
+    unauthenticated GET /cds-au/v1/banking/products (and /products/{productId}) surface
+    that every active Australian ADI must expose under the DSB Consumer Data Standards
+    (CDS). It returns product data - accounts, rates, fees, and eligibility - as JSON
+    with an x-v version header. This entry is UNVERIFIED for Australian Unity Bank -
+    the bank is not currently listed as an active data holder brand in the CDR Register
+    and no live PRD endpoint returned HTTP 200, so the baseURL shown is the shared
+    CDS path template ({dataHolderPublicBaseUri}), not a confirmed Australian Unity
+    host. The linked contract is the shared DSB Consumer Data Standards, not a
+    bank-proprietary API.
+common:
+- type: Website
+  url: https://www.australianunity.com.au/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/australian-unity/
+- type: PrivacyPolicy
+  url: https://www.australianunity.com.au/privacy-policy
+- type: TermsOfService
+  url: https://www.australianunity.com.au/terms-and-conditions
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

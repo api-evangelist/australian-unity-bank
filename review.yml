@@ -1,0 +1,91 @@
+aid: australian-unity-bank
+name: Australian Unity Bank
+review:
+  question: Does Australian Unity Bank expose a live, public CDR Product Reference Data (PRD) API?
+  answer: false
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: false
+  developerPortal: false
+  specProvenance: |
+    No bank-proprietary API contract exists. The only applicable contract is the
+    shared DSB Consumer Data Standards (CDS) Banking Products specification, which
+    all active Australian ADIs implement identically. No OpenAPI/Swagger was
+    harvested into openapi/ because attaching the generic CDS spec to a bank that
+    is not an active data holder would overstate its posture; the CDS standard is
+    published by the Data Standards Body at
+    https://consumerdatastandardsaustralia.github.io/standards/.
+findings:
+  summary: |
+    Australian Unity Bank Limited is a genuine APRA-authorised deposit-taking
+    institution (the banking arm of the Australian Unity mutual, descended from
+    Big Sky Building Society / Big Sky Credit Union), but it does NOT currently
+    operate a live public API surface. It is not listed as an active data holder
+    brand in the CDR Register (the Get Data Holder Brands Summary API, checked
+    2026-07-20, lastUpdated 2026-07-17, returned 119 banking brands with no
+    "Australian Unity" and no "Big Sky" entry). Web research indicates Australian
+    Unity Bank was among the ADIs granted CDR exemption / deferred data-holder
+    timelines. Its public website carries no developer portal, no open-banking
+    page, and no API documentation. A probe of the standard CDS path on the bank's
+    apex API host (https://api.australianunity.com.au/cds-au/v1/banking/products)
+    returned HTTP 404 (the host root https://api.australianunity.com.au/ answers
+    HTTP 200, but exposes no CDS banking-products endpoint). NOTE: "Unity Bank"
+    (ibank.unity.bank) and "UniBank" (Teachers Mutual Bank, ob.tmbl.com.au) are
+    SEPARATE institutions and were deliberately not conflated with Australian Unity.
+  authModel: |
+    Not applicable / not confirmed. Under CDR, the PRD (product) endpoints are
+    public and unauthenticated, while consumer-data (authenticated) endpoints use
+    the CDR / OAuth2 + OpenID Connect FAPI profile with the Accredited Data
+    Recipient (ADR) model and the CDR Register trust framework. Australian Unity
+    Bank exposes neither a confirmed public PRD endpoint nor any documented
+    authenticated consumer-data API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{dataHolderPublicBaseUri}/cds-au/v1/banking/products
+      documented: false
+      note: |
+        Standard DSB Consumer Data Standards PRD path. Listed as a template only -
+        no confirmed Australian Unity host. Probe of the apex API host returned 404.
+    - protocol: GraphQL
+      documented: false
+    - protocol: gRPC
+      documented: false
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+  endpointsProbed:
+    - url: https://api.australianunity.com.au/cds-au/v1/banking/products
+      status: 404
+    - url: https://openbank.australianunity.com.au/cds-au/v1/banking/products
+      status: 000
+      note: Host does not resolve.
+    - url: https://cdr.australianunity.com.au/cds-au/v1/banking/products
+      status: 000
+      note: Host does not resolve.
+    - url: https://api.australianunity.com.au/
+      status: 200
+      note: Apex API host answers but exposes no CDS banking-products endpoint.
+sources:
+  - url: https://api.cdr.gov.au/cdr-register/v1/banking/data-holders/brands/summary
+    type: APIReference
+    note: |
+      Authoritative CDR Register Get Data Holder Brands Summary API. 119 banking
+      brands on 2026-07-20; no Australian Unity / Big Sky entry - confirms the bank
+      is not an active data holder.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+    type: Documentation
+    note: Shared DSB Consumer Data Standards - the only applicable PRD contract.
+  - url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+    type: Documentation
+    note: How to discover a data holder's product-data service via the Register.
+  - url: https://www.australianunity.com.au/
+    type: Website
+    note: Corporate/mutual site; no developer portal or open-banking API references found.
+actions:
+  openapiHarvested: false
+  reason: |
+    No live PRD endpoint and no bank-proprietary spec exist; the generic CDS
+    standard was not copied into openapi/ to avoid overstating the bank's posture.
+    This profile is a bootstrap stub recording a genuine ADI identity with an
+    unverified CDR PRD surface.
