@@ -12,14 +12,18 @@ description: Australian Unity Bank Limited is the banking arm of Australian Unit
   APRA-authorised deposit-taking institution (ADI) covered by the Financial Claims
   Scheme. On its Consumer Data Right (CDR / Open Banking) posture, Australian Unity
   Bank is a genuine ADI and operates a real CDR Open Banking gateway at
-  open-banking.australianunity.com.au (CloudFront-fronted), exposing the mandated
-  Product Reference Data (PRD) surface at /cds-au/v1/banking/products. A July 2026
-  probe from a non-AU IP returned HTTP 403 across x-v 1-4 (typical WAF / geo /
-  accreditation gating on CDR PRD hosts), so product JSON could not be captured
-  verbatim, but the host resolves and responds - confirming Australian Unity as a
-  live data-holder surface rather than the earlier unverified template. The bank
-  publishes no separate developer portal or open-banking API documentation on its
-  public marketing website; the contract is the shared DSB Consumer Data Standards.
+  open-banking.australianunity.com.au (CloudFront-fronted), which as a mandated data
+  holder exposes the full DSB Consumer Data Standards (CDS) Banking API surface under
+  the /cds-au/v1/banking prefix - the public Product Reference Data (PRD) endpoints
+  plus the consumer-authorized Accounts, Balances, Transactions, Direct Debits,
+  Scheduled Payments, and Payees endpoints. A July 2026 probe from a non-AU IP
+  returned HTTP 403 across x-v 1-4 (typical WAF / geo / accreditation gating on CDR
+  hosts), so payloads could not be captured verbatim, but the host resolves and
+  responds - confirming Australian Unity as a live data-holder surface. The bank
+  publishes no separate first-party developer portal or open-banking API
+  documentation beyond CDR (its api.australianunity.com.au host serves only a
+  webMethods Integration Server admin page, not documented APIs); the API contract
+  is the shared DSB Consumer Data Standards.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Financial
@@ -31,7 +35,7 @@ tags:
 - Mutual
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
 - aid: australian-unity-bank:australian-unity-bank-cdr-product-reference-data-api
@@ -42,29 +46,152 @@ apis:
   - Product Reference Data
   - Banking
   - Products
+  - Public
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
   baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
   properties:
   - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
     type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
     type: APIReference
+  - url: openapi/australian-unity-bank-cds-banking-openapi.json
+    type: OpenAPI
   - url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
     type: Provenance
-  description: The Consumer Data Right Product Reference Data (PRD) API is the public,
-    unauthenticated GET /cds-au/v1/banking/products (and /products/{productId}) surface
-    that every active Australian ADI must expose under the DSB Consumer Data Standards
-    (CDS). It returns product data - accounts, rates, fees, and eligibility - as JSON
-    with an x-v version header. Australian Unity Bank operates a real CDR Open Banking
-    gateway at https://open-banking.australianunity.com.au/ (CloudFront-fronted); the
-    baseURL above is its confirmed PRD path. As of a July 2026 probe from a non-AU IP,
-    the /cds-au/v1/banking/products endpoint (and the host root) returned HTTP 403
-    Forbidden to unauthenticated GETs across x-v 1-4 - typical WAF/geo/accreditation
-    gating on CDR PRD hosts - so product JSON could not be captured verbatim, but the
-    host resolves and responds, confirming Australian Unity as a live data-holder
-    surface. The linked contract is the shared DSB Consumer Data Standards, not a
-    bank-proprietary API.
+  description: >-
+    Public, unauthenticated Product Reference Data (PRD) endpoints under the
+    Consumer Data Right: GET /cds-au/v1/banking/products and GET
+    /cds-au/v1/banking/products/{productId}, which every active Australian ADI
+    must expose under the DSB Consumer Data Standards. They return machine-readable
+    product, rate, fee, and eligibility data as JSON with the mandatory CDS `x-v`
+    version header. Australian Unity Bank serves these from its real CDR gateway
+    https://open-banking.australianunity.com.au (CloudFront-fronted). Probed
+    2026-07-21 from a non-AU IP: GET /cds-au/v1/banking/products returned HTTP 403
+    Forbidden across x-v 1-4 (typical WAF/geo/accreditation gating on CDR PRD
+    hosts), so product JSON could not be captured verbatim, but the host resolves
+    and responds, confirming a live data-holder surface. The contract is the
+    shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0, OpenAPI 3.0.3)
+    harvested verbatim from the Data Standards Body, not a bank-proprietary spec.
+- aid: australian-unity-bank:australian-unity-bank-cdr-accounts-balances-api
+  name: Australian Unity Bank CDR Accounts & Balances API
+  tags:
+  - CDR
+  - Open Banking
+  - Accounts
+  - Balances
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+    type: APIReference
+  - url: openapi/australian-unity-bank-cds-banking-openapi.json
+    type: OpenAPI
+  description: >-
+    Consumer-authorized account and balance endpoints under the Consumer Data
+    Right, served from Australian Unity Bank's CDR host
+    https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
+    /banking/accounts (list of authorized accounts), GET
+    /banking/accounts/balances (bulk balances), GET
+    /banking/accounts/{accountId}/balance (single balance), and GET
+    /banking/accounts/{accountId} (account detail). Access requires an ACCC-
+    accredited data recipient (ADR), an eligible member's consent, and the CDR
+    security profile (OIDC/FAPI, mTLS); the host rejects unauthenticated requests
+    (probed 2026-07-21: HTTP 403). The contract is the shared DSB Consumer Data
+    Standards Banking OpenAPI (v1.36.0), not a bank-proprietary specification.
+- aid: australian-unity-bank:australian-unity-bank-cdr-transactions-api
+  name: Australian Unity Bank CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Transactions
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+    type: APIReference
+  - url: openapi/australian-unity-bank-cds-banking-openapi.json
+    type: OpenAPI
+  description: >-
+    Consumer-authorized transaction endpoints under the Consumer Data Right,
+    served from https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
+    /banking/accounts/{accountId}/transactions (transactions for an account, with
+    date and amount filters) and GET
+    /banking/accounts/{accountId}/transactions/{transactionId} (transaction
+    detail). Access requires an ACCC-accredited data recipient, the member's
+    consent, and the CDR security profile (OIDC/FAPI, mTLS); the host rejects
+    unauthenticated requests (probed 2026-07-21: HTTP 403). The contract is the
+    shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0), not a
+    bank-proprietary specification.
+- aid: australian-unity-bank:australian-unity-bank-cdr-direct-debits-scheduled-payments-api
+  name: Australian Unity Bank CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+    type: APIReference
+  - url: openapi/australian-unity-bank-cds-banking-openapi.json
+    type: OpenAPI
+  description: >-
+    Consumer-authorized direct-debit and scheduled-payment endpoints under the
+    Consumer Data Right, served from
+    https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
+    /banking/accounts/{accountId}/direct-debits and POST
+    /banking/accounts/direct-debits (bulk), plus GET
+    /banking/accounts/{accountId}/payments/scheduled and POST
+    /banking/payments/scheduled (bulk scheduled payments). Access requires an
+    ACCC-accredited data recipient, the member's consent, and the CDR security
+    profile (OIDC/FAPI, mTLS); the host rejects unauthenticated requests (probed
+    2026-07-21: HTTP 403). The contract is the shared DSB Consumer Data Standards
+    Banking OpenAPI (v1.36.0), not a bank-proprietary specification.
+- aid: australian-unity-bank:australian-unity-bank-cdr-payees-api
+  name: Australian Unity Bank CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Payees
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+    type: APIReference
+  - url: openapi/australian-unity-bank-cds-banking-openapi.json
+    type: OpenAPI
+  description: >-
+    Consumer-authorized saved-payee endpoints under the Consumer Data Right,
+    served from https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
+    /banking/payees (list of the member's saved payees) and GET
+    /banking/payees/{payeeId} (payee detail, including domestic, biller, and
+    international payee unions). Access requires an ACCC-accredited data recipient,
+    the member's consent, and the CDR security profile (OIDC/FAPI, mTLS); the host
+    rejects unauthenticated requests (probed 2026-07-21: HTTP 403). The contract
+    is the shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0), not a
+    bank-proprietary specification.
 common:
 - type: DomainSecurity
   url: security/australian-unity-bank-domain-security.yml
@@ -72,6 +199,8 @@ common:
   url: llms/australian-unity-bank-llms.txt
 - type: Website
   url: https://www.australianunity.com.au/
+- type: OpenBanking
+  url: https://www.australianunity.com.au/banking/open-banking
 - type: LinkedIn
   url: https://www.linkedin.com/company/australian-unity/
 - type: PrivacyPolicy
