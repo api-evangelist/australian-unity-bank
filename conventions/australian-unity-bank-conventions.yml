@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+docs: https://consumerdatastandardsaustralia.github.io/standards/#http-headers
+notes: >-
+  Cross-cutting request/response semantics for Australian Unity Bank's CDR banking
+  endpoints, derived from the shared DSB CDS Banking OpenAPI (v1.36.0). These are
+  DSB-standard conventions common to every Australian ADI, not bank-specific.
+authentication:
+  style: CDR security profile (OAuth2 + OIDC + FAPI 1.0 Advanced, mTLS-bound tokens)
+  public_endpoints: Product Reference Data (products) are public/unauthenticated
+  see: authentication/australian-unity-bank-authentication.yml
+versioning:
+  scheme: header
+  request_headers:
+    x-v: requested endpoint version (mandatory positive integer)
+    x-min-v: minimum acceptable version for negotiation (optional)
+  response_headers:
+    x-v: version actually served
+  errors: 400 Header/InvalidVersion, 400 Header/Missing, 406 Header/UnsupportedVersion
+pagination:
+  style: page-based
+  request_params:
+    page: 1-based page number
+    page-size: records per page (default 25, max 1000 per CDS)
+  response:
+    meta: { totalRecords, totalPages }
+    links: { self, first, prev, next, last }
+  errors: 400 Field/InvalidPageSize, 422 Field/InvalidPage
+request_tracing:
+  header: x-fapi-interaction-id
+  behavior: caller-supplied RFC 4122 UUID echoed back on the response; server generates one if absent
+  related_headers:
+    x-fapi-auth-date: time the customer last authenticated
+    x-fapi-customer-ip-address: end-customer IP when the request is customer-present
+    x-cds-client-headers: base64 CDR client (ADR software product) headers
+idempotency:
+  supported: false
+  notes: >-
+    Banking endpoints are read-only (GET; the POST variants carry an account-id
+    list for bulk reads, not mutations), so no Idempotency-Key contract is defined.
+error_envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2
+  shape: '{ errors: [ { code (URN), title, detail, meta } ] }'
+  see: errors/australian-unity-bank-problem-types.yml
+rate_limiting:
+  scheme: CDR NFR traffic thresholds (per-session and unattended call limits set by the DSB Non-Functional Requirements)
+  signaling: not exposed as standard response headers in the CDS Banking spec

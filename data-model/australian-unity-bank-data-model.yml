@@ -1,0 +1,61 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+docs: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+notes: >-
+  Entity-relationship graph derived from the DSB CDS Banking OpenAPI (v1.36.0)
+  path structure and id-reference fields. accountId and productId are the primary
+  correlation keys across the banking resource surface.
+entities:
+  - name: BankingProduct
+    key: productId
+    operations: [listBankingProducts, getBankingProductDetail]
+    public: true
+  - name: BankingAccount
+    key: accountId
+    operations: [listBankingAccounts, getBankingAccountDetail]
+  - name: BankingBalance
+    key: accountId
+    operations: [listBankingBalancesBulk, listBankingBalancesSpecificAccounts, getBankingBalance]
+  - name: BankingTransaction
+    key: transactionId
+    operations: [listBankingTransactions, getBankingTransactionDetail]
+  - name: BankingDirectDebit
+    operations: [listDirectDebits, listDirectDebitsBulk, listDirectDebitsSpecificAccounts]
+  - name: BankingScheduledPayment
+    operations: [listScheduledPayments, listScheduledPaymentsBulk, listScheduledPaymentsSpecificAccounts]
+  - name: BankingInstalmentPlan
+    operations: [listInstalmentPlans, listInstalmentPlansBulk]
+  - name: BankingPayee
+    key: payeeId
+    operations: [listBankingPayees, getBankingPayeeDetail]
+    unions: [domestic, biller, international, digitalWallet]
+relationships:
+  - from: BankingAccount
+    to: BankingBalance
+    type: has_one
+    via: accountId
+  - from: BankingAccount
+    to: BankingTransaction
+    type: has_many
+    via: accountId
+  - from: BankingAccount
+    to: BankingDirectDebit
+    type: has_many
+    via: accountId
+  - from: BankingAccount
+    to: BankingScheduledPayment
+    type: has_many
+    via: accountId
+  - from: BankingAccount
+    to: BankingInstalmentPlan
+    type: has_many
+    via: accountId
+  - from: BankingScheduledPayment
+    to: BankingPayee
+    type: belongs_to
+    via: payeeReference
+  - from: BankingAccount
+    to: BankingProduct
+    type: belongs_to
+    via: productCategory

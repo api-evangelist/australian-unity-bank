@@ -1,0 +1,65 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+docs: https://consumerdatastandardsaustralia.github.io/standards/#error-codes
+format: cds-error-v2
+notes: >-
+  Australian Unity Bank's CDR banking endpoints return the shared DSB Consumer
+  Data Standards error object (ResponseErrorListV2 -> errors[] of ErrorV2 with
+  code/title/detail/meta). The `code` is a DSB-standard URN
+  (urn:au-cds:error:cds-all:... or urn:au-cds:error:cds-banking:...). This catalog
+  is derived from the standardized 4xx responses the CDS Banking OpenAPI (v1.36.0)
+  mandates on every operation; it is the shared standard, not a bank-proprietary
+  registry. CDS error shape is RFC 7807/9457-inspired but NOT application/problem+json.
+envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2
+  fields:
+    - errors[].code
+    - errors[].title
+    - errors[].detail
+    - errors[].meta
+problems:
+  - status: 400
+    code: urn:au-cds:error:cds-all:Field/Invalid
+    title: Invalid Field
+    detail: A supplied field value failed validation.
+    applies_to_all_operations: true
+  - status: 400
+    code: urn:au-cds:error:cds-all:Field/Missing
+    title: Missing Required Field
+    detail: A field required by the request was not supplied.
+    applies_to_all_operations: true
+  - status: 400
+    code: urn:au-cds:error:cds-all:Header/Missing
+    title: Missing Required Header
+    detail: A required header (e.g. x-v) was not supplied.
+    applies_to_all_operations: true
+  - status: 400
+    code: urn:au-cds:error:cds-all:Header/InvalidVersion
+    title: Invalid Version
+    detail: The requested x-v version value is not a positive integer.
+    applies_to_all_operations: true
+  - status: 400
+    code: urn:au-cds:error:cds-all:Field/InvalidPageSize
+    title: Invalid Page Size
+    detail: The page-size query parameter is outside the permitted range.
+  - status: 404
+    code: urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount
+    title: Unavailable Banking Account
+    detail: The account is not available for the consented data recipient.
+    source_operations: [getBankingAccountDetail, getBankingBalance, listBankingTransactions, getBankingTransactionDetail, listDirectDebits, listScheduledPayments, listInstalmentPlans, getBankingPayeeDetail, getBankingProductDetail]
+  - status: 404
+    code: urn:au-cds:error:cds-banking:Authorisation/InvalidBankingAccount
+    title: Invalid Banking Account
+    detail: The supplied accountId does not correspond to a valid account.
+    source_operations: [getBankingAccountDetail, getBankingBalance, listBankingTransactions, getBankingTransactionDetail, listDirectDebits, listScheduledPayments, listInstalmentPlans]
+  - status: 406
+    code: urn:au-cds:error:cds-all:Header/UnsupportedVersion
+    title: Unsupported Version
+    detail: The requested x-v version is not supported by the endpoint.
+    applies_to_all_operations: true
+  - status: 422
+    code: urn:au-cds:error:cds-all:Field/InvalidPage
+    title: Invalid Page
+    detail: The requested page is out of range for the result set.

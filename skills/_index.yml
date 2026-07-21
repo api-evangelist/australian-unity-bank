@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+notes: >-
+  Agent Skills generated from the DSB CDS Banking OpenAPI (v1.36.0) Australian
+  Unity Bank implements as a CDR data holder. Every operationId is verified present
+  in the spec. No provider-published skills/AGENTS.md exist.
+skills:
+  - file: australian-unity-bank-product-reference-data.md
+    name: Retrieve Australian Unity Bank product reference data
+    api: openapi/australian-unity-bank-cds-banking-openapi.json
+    operations: [listBankingProducts, getBankingProductDetail]
+  - file: australian-unity-bank-accounts-and-balances.md
+    name: Retrieve Australian Unity Bank accounts and balances
+    api: openapi/australian-unity-bank-cds-banking-openapi.json
+    operations: [listBankingAccounts, getBankingAccountDetail, listBankingBalancesBulk, listBankingBalancesSpecificAccounts, getBankingBalance]
+  - file: australian-unity-bank-transactions-and-payments.md
+    name: Retrieve Australian Unity Bank transactions and payment arrangements
+    api: openapi/australian-unity-bank-cds-banking-openapi.json
+    operations: [listBankingTransactions, getBankingTransactionDetail, listDirectDebits, listScheduledPayments, listInstalmentPlans, listBankingPayees, getBankingPayeeDetail]

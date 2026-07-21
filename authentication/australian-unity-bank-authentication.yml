@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+docs: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+notes: >-
+  The harvested CDS Banking OpenAPI (v1.36.0) declares no securitySchemes because
+  the CDR authorization model lives in the separate DSB InfoSec / Security Profile.
+  Australian Unity Bank, as a CDR data holder, implements that shared profile.
+  Product Reference Data (products) endpoints are public/unauthenticated; all
+  consumer-data endpoints require the full CDR security profile.
+summary:
+  types: [oauth2, openIdConnect, mutualTLS]
+  public_endpoints: [listBankingProducts, getBankingProductDetail]
+  oauth2_flows: [authorizationCode, hybrid]
+schemes:
+  - name: CDR-Security-Profile
+    type: openIdConnect
+    profile: FAPI 1.0 Advanced
+    features:
+      - private_key_jwt client authentication
+      - Pushed Authorization Requests (PAR)
+      - PKCE
+      - request objects signed (JARM/signed responses)
+      - mutual TLS sender-constrained access tokens
+      - CDR Register trust framework (ADR accreditation + SSA)
+    authorizationServer: https://open-banking.australianunity.com.au (OIDC discovery geo/WAF-gated; HTTP 403 to non-AU probe 2026-07-21)
+    scopes_ref: scopes/australian-unity-bank-scopes.yml
+  - name: mTLS
+    type: mutualTLS
+    description: Mutual TLS is required on token and resource endpoints; access tokens are sender-constrained (holder-of-key).
+  - name: PublicPRD
+    type: none
+    description: Product Reference Data endpoints are public and require no credentials.
+    operations: [listBankingProducts, getBankingProductDetail]

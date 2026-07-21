@@ -193,8 +193,34 @@ apis:
     is the shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0), not a
     bank-proprietary specification.
 common:
+- type: AgenticAccess
+  url: agentic-access/australian-unity-bank-agentic-access.yml
 - type: DomainSecurity
   url: security/australian-unity-bank-domain-security.yml
+- type: Authentication
+  url: authentication/australian-unity-bank-authentication.yml
+- type: OAuthScopes
+  url: scopes/australian-unity-bank-scopes.yml
+- type: Conventions
+  url: conventions/australian-unity-bank-conventions.yml
+- type: ErrorCatalog
+  url: errors/australian-unity-bank-problem-types.yml
+- type: Conformance
+  url: conformance/australian-unity-bank-conformance.yml
+- type: DataModel
+  url: data-model/australian-unity-bank-data-model.yml
+- type: Lifecycle
+  url: lifecycle/australian-unity-bank-lifecycle.yml
+- type: MCPServer
+  url: mcp/australian-unity-bank-mcp.yml
+- type: Overlay
+  url: overlays/australian-unity-bank-cds-banking-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Documentation
+  url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+- type: APIReference
+  url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api
 - type: LLMsTxt
   url: llms/australian-unity-bank-llms.txt
 - type: Website

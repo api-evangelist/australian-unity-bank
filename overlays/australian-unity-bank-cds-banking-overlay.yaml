@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Australian Unity Bank CDR Banking
+  version: 1.0.0
+extends: openapi/australian-unity-bank-cds-banking-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: australian-unity-bank
+      x-apievangelist-standard: DSB Consumer Data Standards (CDS) Banking v1.36.0
+      x-apievangelist-notes: >-
+        Shared DSB CDS Banking contract implemented by Australian Unity Bank as a
+        CDR data holder. Product Reference Data endpoints are public; all other
+        operations require the CDR security profile (OAuth2/OIDC/FAPI + mTLS + ADR
+        accreditation). Host open-banking.australianunity.com.au is WAF/geo-gated
+        (HTTP 403 to non-AU probe 2026-07-21).
+  - target: $.servers
+    update:
+      - url: https://open-banking.australianunity.com.au/cds-au/v1
+        description: Australian Unity Bank CDR data-holder gateway (production, geo/accreditation-gated)
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/australian-unity-bank-authentication.yml
+        scopes: scopes/australian-unity-bank-scopes.yml
+        errors: errors/australian-unity-bank-problem-types.yml
+        conventions: conventions/australian-unity-bank-conventions.yml
+        conformance: conformance/australian-unity-bank-conformance.yml
+        data-model: data-model/australian-unity-bank-data-model.yml
+        lifecycle: lifecycle/australian-unity-bank-lifecycle.yml

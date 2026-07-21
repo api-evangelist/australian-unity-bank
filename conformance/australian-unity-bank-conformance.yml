@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+docs: https://consumerdatastandardsaustralia.github.io/standards/
+notes: >-
+  Conformance derived from the shared DSB Consumer Data Standards (CDS) Banking
+  OpenAPI (v1.36.0) that Australian Unity Bank, as a mandated CDR data holder,
+  implements. Security-profile standards (OIDC/FAPI/mTLS) are asserted from the
+  CDR regime the endpoints operate under, not from securitySchemes in the spec
+  (the harvested CDS Banking spec declares none; auth lives in the separate CDR
+  InfoSec profile).
+standards:
+  - id: cdr-consumer-data-standards
+    conforms: true
+    evidence: implements the DSB CDS Banking API surface under /cds-au/v1/banking
+  - id: oauth2
+    conforms: true
+    evidence: CDR security profile mandates OAuth 2.0 authorization for consumer-data endpoints
+  - id: oidc
+    conforms: true
+    evidence: CDR uses OpenID Connect (hybrid/authorization-code) for identity
+  - id: fapi
+    conforms: true
+    evidence: CDR InfoSec profile is built on FAPI 1.0 Advanced (private_key_jwt, PAR, PKCE)
+  - id: mtls
+    conforms: true
+    evidence: CDR mandates mutual TLS for token and resource requests (sender-constrained tokens)
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: uses CDS ErrorV2 (ResponseErrorListV2) JSON, not application/problem+json
+  - id: pagination
+    conforms: true
+    evidence: page/page-size query parameters with x-total-pages/x-total-records style links+meta
+  - id: json-api
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: odata
+    conforms: false

@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+notes: >-
+  Australian Unity Bank operates as a CDR data holder against the DSB Consumer
+  Data Standards; lifecycle is governed centrally by the Data Standards Body, not
+  by a bank-proprietary policy. The bank publishes no independent API status page,
+  changelog, or deprecation policy beyond the DSB standards maintenance process.
+versioning:
+  scheme: per-endpoint header versioning
+  mechanism: x-v (requested) / x-min-v (minimum) request headers; x-v echoed on response
+  spec_version: 1.36.0
+  standard: DSB Consumer Data Standards (CDS)
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+deprecation:
+  policy: DSB endpoint version retirement via x-min-v negotiation and Future Dated Obligations
+  policy_url: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+  sunset_header: false
+  standards_maintenance: https://consumerdatastandardsaustralia.github.io/standards/#maintenance
+sla:
+  scheme: CDR Non-Functional Requirements (availability/performance thresholds set by the DSB)
+  url: https://consumerdatastandardsaustralia.github.io/standards/#non-functional-requirements
+status_page: null
+deprecated_operations: []

@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes
+docs: https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes
+notes: >-
+  The DSB Consumer Data Standards define the fixed authorisation-scope set that
+  every Australian ADI (including Australian Unity Bank, as a CDR data holder)
+  must honour for consumer-authorised banking data. Scopes are not declared in the
+  harvested CDS Banking OpenAPI (auth lives in the separate CDR InfoSec profile),
+  so this scope list is captured from the DSB standard, mapped to the operations
+  in openapi/australian-unity-bank-cds-banking-openapi.json. Product Reference
+  Data endpoints are public and require no scope.
+schemes:
+  - name: CDR-OIDC
+    type: openIdConnect
+    profile: FAPI 1.0 Advanced (CDR Security Profile)
+    flows: [authorizationCode, hybrid]
+scopes:
+  - scope: openid
+    description: OpenID Connect authentication (required by the CDR flow).
+  - scope: profile
+    description: Basic profile claims within the CDR consent.
+  - scope: common:customer.basic:read
+    description: Read basic customer/member identity data.
+  - scope: common:customer.detail:read
+    description: Read detailed customer/member data (contact details).
+  - scope: bank:accounts.basic:read
+    description: List accounts and read basic account and balance data.
+    operations: [listBankingAccounts, listBankingBalancesBulk, listBankingBalancesSpecificAccounts, getBankingBalance]
+  - scope: bank:accounts.detail:read
+    description: Read detailed account data.
+    operations: [getBankingAccountDetail]
+  - scope: bank:transactions:read
+    description: Read account transactions.
+    operations: [listBankingTransactions, getBankingTransactionDetail]
+  - scope: bank:regular_payments:read
+    description: Read direct debits, scheduled payments, and instalment plans.
+    operations: [listDirectDebits, listDirectDebitsBulk, listDirectDebitsSpecificAccounts, listScheduledPayments, listScheduledPaymentsBulk, listScheduledPaymentsSpecificAccounts, listInstalmentPlans, listInstalmentPlansBulk]
+  - scope: bank:payees:read
+    description: Read the member's saved payees.
+    operations: [listBankingPayees, getBankingPayeeDetail]

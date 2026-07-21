@@ -1,0 +1,73 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/australian-unity-bank-cds-banking-openapi.json
+notes: >-
+  No official hosted MCP server is published by Australian Unity Bank or the DSB.
+  This is a DERIVED candidate tool list, one tool per read operation in the CDS
+  Banking OpenAPI (v1.36.0). Consumer-data tools require the CDR security profile
+  (OAuth2/OIDC/FAPI + mTLS + ADR accreditation); only the product tools are public.
+server:
+  name: australian-unity-bank-cds-banking
+  transport: http
+  url: null
+tools:
+  - name: list_banking_products
+    description: List publicly available banking products (PRD).
+    public: true
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listBankingProducts
+  - name: get_banking_product_detail
+    description: Get detail for a specific banking product.
+    public: true
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#getBankingProductDetail
+  - name: list_banking_accounts
+    description: List the member's authorised accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listBankingAccounts
+  - name: get_banking_account_detail
+    description: Get detail for a specific account.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#getBankingAccountDetail
+  - name: list_banking_balances_bulk
+    description: Get balances for all authorised accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listBankingBalancesBulk
+  - name: list_banking_balances_specific_accounts
+    description: Get balances for a supplied list of accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listBankingBalancesSpecificAccounts
+  - name: get_banking_balance
+    description: Get the balance for a single account.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#getBankingBalance
+  - name: list_banking_transactions
+    description: List transactions for an account (date/amount filters).
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listBankingTransactions
+  - name: get_banking_transaction_detail
+    description: Get detail for a single transaction.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#getBankingTransactionDetail
+  - name: list_direct_debits
+    description: List direct debits for an account.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listDirectDebits
+  - name: list_direct_debits_bulk
+    description: List direct debits across all authorised accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listDirectDebitsBulk
+  - name: list_direct_debits_specific_accounts
+    description: List direct debits for a supplied list of accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listDirectDebitsSpecificAccounts
+  - name: list_scheduled_payments
+    description: List scheduled payments for an account.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listScheduledPayments
+  - name: list_scheduled_payments_bulk
+    description: List scheduled payments across all authorised accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listScheduledPaymentsBulk
+  - name: list_scheduled_payments_specific_accounts
+    description: List scheduled payments for a supplied list of accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listScheduledPaymentsSpecificAccounts
+  - name: list_instalment_plans
+    description: List instalment plans for an account.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listInstalmentPlans
+  - name: list_instalment_plans_bulk
+    description: List instalment plans across all authorised accounts.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listInstalmentPlansBulk
+  - name: list_banking_payees
+    description: List the member's saved payees.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#listBankingPayees
+  - name: get_banking_payee_detail
+    description: Get detail for a saved payee.
+    source_operation: openapi/australian-unity-bank-cds-banking-openapi.json#getBankingPayeeDetail
