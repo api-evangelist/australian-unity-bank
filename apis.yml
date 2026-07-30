@@ -24,7 +24,19 @@ description: Australian Unity Bank Limited is the banking arm of Australian Unit
   documentation beyond CDR (its api.australianunity.com.au host serves only a
   webMethods Integration Server admin page, not documented APIs); the API contract
   is the shared DSB Consumer Data Standards.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/australian-unity-bank.png
 tags:
 - Financial
 - Banks
@@ -38,160 +50,244 @@ created: '2026-07-20'
 modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
-- aid: australian-unity-bank:australian-unity-bank-cdr-product-reference-data-api
-  name: Australian Unity Bank CDR Product Reference Data API
-  tags:
-  - Open Banking
-  - CDR
-  - Product Reference Data
-  - Banking
-  - Products
-  - Public
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: australian-unity-bank:australian-unity-bank-banking-account-balances-api
+  name: Australian Unity Bank Banking Account Balances API
+  description: Banking Account Balance endpoints
   humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
   baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
-  properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
-    type: APIReference
-  - url: openapi/australian-unity-bank-cds-banking-openapi.json
-    type: OpenAPI
-  - url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
-    type: Provenance
-  description: >-
-    Public, unauthenticated Product Reference Data (PRD) endpoints under the
-    Consumer Data Right: GET /cds-au/v1/banking/products and GET
-    /cds-au/v1/banking/products/{productId}, which every active Australian ADI
-    must expose under the DSB Consumer Data Standards. They return machine-readable
-    product, rate, fee, and eligibility data as JSON with the mandatory CDS `x-v`
-    version header. Australian Unity Bank serves these from its real CDR gateway
-    https://open-banking.australianunity.com.au (CloudFront-fronted). Probed
-    2026-07-21 from a non-AU IP: GET /cds-au/v1/banking/products returned HTTP 403
-    Forbidden across x-v 1-4 (typical WAF/geo/accreditation gating on CDR PRD
-    hosts), so product JSON could not be captured verbatim, but the host resolves
-    and responds, confirming a live data-holder surface. The contract is the
-    shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0, OpenAPI 3.0.3)
-    harvested verbatim from the Data Standards Body, not a bank-proprietary spec.
-- aid: australian-unity-bank:australian-unity-bank-cdr-accounts-balances-api
-  name: Australian Unity Bank CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
-  - Accounts
-  - Balances
-  - Banking
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
-  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/accounts
+  - Banking Account Balances
   properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
-    type: APIReference
-  - url: openapi/australian-unity-bank-cds-banking-openapi.json
-    type: OpenAPI
-  description: >-
-    Consumer-authorized account and balance endpoints under the Consumer Data
-    Right, served from Australian Unity Bank's CDR host
-    https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
-    /banking/accounts (list of authorized accounts), GET
-    /banking/accounts/balances (bulk balances), GET
-    /banking/accounts/{accountId}/balance (single balance), and GET
-    /banking/accounts/{accountId} (account detail). Access requires an ACCC-
-    accredited data recipient (ADR), an eligible member's consent, and the CDR
-    security profile (OIDC/FAPI, mTLS); the host rejects unauthenticated requests
-    (probed 2026-07-21: HTTP 403). The contract is the shared DSB Consumer Data
-    Standards Banking OpenAPI (v1.36.0), not a bank-proprietary specification.
-- aid: australian-unity-bank:australian-unity-bank-cdr-transactions-api
-  name: Australian Unity Bank CDR Transactions API
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: australian-unity-bank:australian-unity-bank-banking-account-direct-debits-api
+  name: Australian Unity Bank Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Transactions
-  - Banking
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
-  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/accounts
+  - Banking Account Direct Debits
   properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
-    type: APIReference
-  - url: openapi/australian-unity-bank-cds-banking-openapi.json
-    type: OpenAPI
-  description: >-
-    Consumer-authorized transaction endpoints under the Consumer Data Right,
-    served from https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
-    /banking/accounts/{accountId}/transactions (transactions for an account, with
-    date and amount filters) and GET
-    /banking/accounts/{accountId}/transactions/{transactionId} (transaction
-    detail). Access requires an ACCC-accredited data recipient, the member's
-    consent, and the CDR security profile (OIDC/FAPI, mTLS); the host rejects
-    unauthenticated requests (probed 2026-07-21: HTTP 403). The contract is the
-    shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0), not a
-    bank-proprietary specification.
-- aid: australian-unity-bank:australian-unity-bank-cdr-direct-debits-scheduled-payments-api
-  name: Australian Unity Bank CDR Direct Debits & Scheduled Payments API
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: australian-unity-bank:australian-unity-bank-banking-account-scheduled-payments-api
+  name: Australian Unity Bank Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Banking
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
-  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking
+  - Banking Account Scheduled Payments
   properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
-    type: APIReference
-  - url: openapi/australian-unity-bank-cds-banking-openapi.json
-    type: OpenAPI
-  description: >-
-    Consumer-authorized direct-debit and scheduled-payment endpoints under the
-    Consumer Data Right, served from
-    https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
-    /banking/accounts/{accountId}/direct-debits and POST
-    /banking/accounts/direct-debits (bulk), plus GET
-    /banking/accounts/{accountId}/payments/scheduled and POST
-    /banking/payments/scheduled (bulk scheduled payments). Access requires an
-    ACCC-accredited data recipient, the member's consent, and the CDR security
-    profile (OIDC/FAPI, mTLS); the host rejects unauthenticated requests (probed
-    2026-07-21: HTTP 403). The contract is the shared DSB Consumer Data Standards
-    Banking OpenAPI (v1.36.0), not a bank-proprietary specification.
-- aid: australian-unity-bank:australian-unity-bank-cdr-payees-api
-  name: Australian Unity Bank CDR Payees API
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: australian-unity-bank:australian-unity-bank-banking-account-transactions-api
+  name: Australian Unity Bank Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Payees
-  - Banking
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
-  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/payees
+  - Banking Account Transactions
   properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
-    type: APIReference
-  - url: openapi/australian-unity-bank-cds-banking-openapi.json
-    type: OpenAPI
-  description: >-
-    Consumer-authorized saved-payee endpoints under the Consumer Data Right,
-    served from https://open-banking.australianunity.com.au/cds-au/v1. Covers GET
-    /banking/payees (list of the member's saved payees) and GET
-    /banking/payees/{payeeId} (payee detail, including domestic, biller, and
-    international payee unions). Access requires an ACCC-accredited data recipient,
-    the member's consent, and the CDR security profile (OIDC/FAPI, mTLS); the host
-    rejects unauthenticated requests (probed 2026-07-21: HTTP 403). The contract
-    is the shared DSB Consumer Data Standards Banking OpenAPI (v1.36.0), not a
-    bank-proprietary specification.
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: australian-unity-bank:australian-unity-bank-banking-accounts-api
+  name: Australian Unity Bank Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: australian-unity-bank:australian-unity-bank-banking-payees-api
+  name: Australian Unity Bank Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: australian-unity-bank:australian-unity-bank-banking-products-api
+  name: Australian Unity Bank Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  baseURL: https://open-banking.australianunity.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/australian-unity-bank-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Provenance
+    url: https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-transactions
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-direct-debits
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#banking-payees
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
 common:
 - type: AgenticAccess
   url: agentic-access/australian-unity-bank-agentic-access.yml
