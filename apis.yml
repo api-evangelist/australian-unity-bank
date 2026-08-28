@@ -24,6 +24,18 @@ description: Australian Unity Bank Limited is the banking arm of Australian Unit
   documentation beyond CDR (its api.australianunity.com.au host serves only a
   webMethods Integration Server admin page, not documented APIs); the API contract
   is the shared DSB Consumer Data Standards.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
