@@ -1,13 +1,7 @@
 {
   "provider": "australian-unity-bank",
   "sources": [
-    "australian-unity-bank-banking-account-balances-api-openapi.yml",
-    "australian-unity-bank-banking-account-direct-debits-api-openapi.yml",
-    "australian-unity-bank-banking-account-scheduled-payments-api-openapi.yml",
-    "australian-unity-bank-banking-account-transactions-api-openapi.yml",
-    "australian-unity-bank-banking-accounts-api-openapi.yml",
-    "australian-unity-bank-banking-payees-api-openapi.yml",
-    "australian-unity-bank-banking-products-api-openapi.yml"
+    "_original/australian-unity-bank-cds-banking-openapi.json"
   ],
   "outputs": [
     "australian-unity-bank-banking-account-balances-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "australian-unity-bank-cds-banking-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "australian-unity-bank-banking-account-balances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "australian-unity-bank-banking-account-direct-debits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "australian-unity-bank-banking-account-scheduled-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "australian-unity-bank-banking-account-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "australian-unity-bank-banking-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "australian-unity-bank-banking-payees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "australian-unity-bank-banking-products-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
