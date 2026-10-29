@@ -1,4 +1,4 @@
-# Australian Unity Bank (australian-unity-bank)
+# Australian Unity Bank
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,63 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Australian Unity Bank Limited is the banking arm of Australian Unity, a member-owned Australian mutual founded in Melbourne in 1840 with origins in the friendly-societies movement. The wider Australian Unity group spans health insurance, wealth management, aged and home care, retirement living, and banking. The bank traces to Big Sky Credit Union, which merged with Australian Unity in 2012, became Big Sky Building Society Limited, and was later renamed Australian Unity Bank Limited. It is an APRA-authorised deposit-taking institution (ADI) covered by the Financial Claims Scheme, offering everyday transaction and savings accounts, term deposits, and home loans to members.
+Australian Unity Bank Limited is the banking arm of Australian Unity, a member-owned Australian mutual founded in Melbourne in 1840 with origins in the friendly-societies movement and a group spanning health insurance, wealth management, aged and home care, retirement living, and banking. The bank traces to Big Sky Credit Union, which merged with Australian Unity in 2012, became Big Sky Building Society Limited, and was later renamed Australian Unity Bank Limited; it offers everyday transaction and savings accounts, term deposits, and home loans to members as an APRA-authorised deposit-taking institution (ADI) covered by the Financial Claims Scheme. On its Consumer Data Right (CDR / Open Banking) posture, Australian Unity Bank is a genuine ADI and operates a real CDR Open Banking gateway at open-banking.australianunity.com.au (CloudFront-fronted), which as a mandated data holder exposes the full DSB Consumer Data Standards (CDS) Banking API surface under the /cds-au/v1/banking prefix - the public Product Reference Data (PRD) endpoints plus the consumer-authorized Accounts, Balances, Transactions, Direct Debits, Scheduled Payments, and Payees endpoints. A July 2026 probe from a non-AU IP returned HTTP 403 across x-v 1-4 (typical WAF / geo / accreditation gating on CDR hosts), so payloads could not be captured verbatim, but the host resolves and responds - confirming Australian Unity as a live data-holder surface. The bank publishes no separate first-party developer portal or open-banking API documentation beyond CDR (its api.australianunity.com.au host serves only a webMethods Integration Server admin page, not documented APIs); the API contract is the shared DSB Consumer Data Standards.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/australian-unity-bank/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/australian-unity-bank/refs/heads/main/apis.yml)
+**Areas:** Finance · Banks · Open Banking · CDR · Consumer Banking · Australia · Mutual · Product Reference Data
 
-## Consumer Data Right (CDR) Posture
+## Australian Unity Bank on APIs.io
 
-Under Australia's Consumer Data Right (Open Banking), every active ADI must expose a public, unauthenticated Product Reference Data (PRD) API at `https://<data-holder-host>/cds-au/v1/banking/products`, conforming to the Data Standards Body (DSB) Consumer Data Standards (CDS).
+Everything profiled for Australian Unity Bank is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/australian-unity-bank/](https://apis.io/providers/australian-unity-bank/)** — or go straight to one of the APIs or properties below.
 
-As of 2026-07-20, Australian Unity Bank is a genuine ADI but is **not** listed as an active data holder brand in the [CDR Register](https://api.cdr.gov.au/cdr-register/v1/banking/data-holders/brands/summary), and it has historically fallen under CDR exemption / deferred data-holder timelines. No live PRD endpoint could be confirmed (`https://api.australianunity.com.au/cds-au/v1/banking/products` returned HTTP 404). The bank publishes no developer portal or open-banking API documentation on its public website. The single API listed below is therefore the shared CDS standard surface, recorded as **unverified** for this bank.
+### APIs (7)
 
-## Tags
+- [Australian Unity Bank Banking Account Balances API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-account-balances-api/) — Banking Account Balance endpoints
+- [Australian Unity Bank Banking Account Direct Debits API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-account-direct-debits-api/) — Banking Account Direct Debit endpoints
+- [Australian Unity Bank Banking Account Scheduled Payments API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-account-scheduled-payments-api/) — Banking Account Scheduled Payment endpoints
+- [Australian Unity Bank Banking Account Transactions API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-account-transactions-api/) — Banking Account Transaction endpoints
+- [Australian Unity Bank Banking Accounts API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-accounts-api/) — Banking Account endpoints
+- [Australian Unity Bank Banking Payees API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-payees-api/) — Banking Payee endpoints
+- [Australian Unity Bank Banking Products API](https://apis.io/apis/australian-unity-bank/australian-unity-bank-banking-products-api/) — Banking Product endpoints
 
-- Financial
-- Banks
-- Open Banking
-- CDR
-- Consumer Banking
-- Australia
-- Mutual
-- Product Reference Data
+### Published properties
 
-## Timestamps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Created:** 2026-07-20
-- **Modified:** 2026-07-20
+#### MCP servers (1)
 
-## APIs
+Model Context Protocol servers that expose the API to agents.
 
-### Australian Unity Bank CDR Product Reference Data API
+- [australian-unity-bank-cds-banking](https://apis.io/servers/australian-unity-bank/australian-unity-bank-cds-banking/)
 
-The Consumer Data Right Product Reference Data (PRD) API is the public, unauthenticated `GET /cds-au/v1/banking/products` (and `/products/{productId}`) surface that every active Australian ADI must expose under the DSB Consumer Data Standards. It returns product data — accounts, rates, fees, and eligibility — as JSON with an `x-v` version header. **Unverified for Australian Unity Bank:** no live endpoint returned HTTP 200, and the bank is not an active data holder in the CDR Register, so the base URL shown is the shared CDS path template, not a confirmed Australian Unity host.
+#### Agentic access (1)
 
-- **Human URL:** [https://consumerdatastandardsaustralia.github.io/standards/#banking-products](https://consumerdatastandardsaustralia.github.io/standards/#banking-products)
-- **Base URL:** `https://{dataHolderPublicBaseUri}/cds-au/v1/banking/products` (unverified — CDS template)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Australian Unity Bank Agentic Access](https://apis.io/agentic-access/australian-unity-bank/australian-unity-bank-agentic-access/)
 
-- Open Banking
-- CDR
-- Product Reference Data
-- Banking
-- Products
+#### Collections (7)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://consumerdatastandardsaustralia.github.io/standards/#banking-products)
-- [API Reference](https://consumerdatastandardsaustralia.github.io/standards/#get-products)
-- [Provenance](https://www.cdr.gov.au/for-providers/how-find-data-holders-product-data-request-service)
+- [CDR Banking Banking Account Balances API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-account-balances-api/)
+- [CDR Banking Banking Account Balances Banking Account Direct Debits API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-account-direct-debits-api/)
+- [CDR Banking Banking Account Balances Banking Account Scheduled Payments API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-account-scheduled-payments-api/)
+- [CDR Banking Banking Account Balances Banking Account Transactions API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-account-transactions-api/)
+- [CDR Banking Banking Account Balances Banking Accounts API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-accounts-api/)
+- [CDR Banking Banking Account Balances Banking Payees API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-payees-api/)
+- [CDR Banking Banking Account Balances Banking Products API](https://apis.io/collections/australian-unity-bank/open-australian-unity-bank-banking-products-api/)
 
-## Common Properties
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Australian Unity Bank Cds Banking Overlay](https://apis.io/overlays/australian-unity-bank/australian-unity-bank-cds-banking-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Australian Unity Bank Authentication](https://apis.io/security/australian-unity-bank/australian-unity-bank-authentication/)
+- [Australian Unity Bank Domain Security](https://apis.io/security/australian-unity-bank/australian-unity-bank-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Australian Unity Bank Scopes](https://apis.io/scopes/australian-unity-bank/australian-unity-bank-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.australianunity.com.au/)
-- [LinkedIn](https://www.linkedin.com/company/australian-unity/)
-- [Privacy Policy](https://www.australianunity.com.au/privacy-policy)
-- [Terms of Service](https://www.australianunity.com.au/terms-and-conditions)
+- [Documentation](https://consumerdatastandardsaustralia.github.io/standards/#banking-apis)
+- [API reference](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api)
+- [Blog](https://www.australianunity.com.au/home-services/articles)
+- [Terms of service](https://www.australianunity.com.au/terms-and-conditions)
+- [Privacy policy](https://www.australianunity.com.au/privacy-policy)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 24.6** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 12.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 32.7 |
+| Access clarity | 21.1 |
+
+**Agent readiness 23.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 44.1** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/australian-unity-bank/](https://apis.io/providers/australian-unity-bank/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Australian Unity Bank: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/australian-unity-bank/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
